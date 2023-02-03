@@ -21,9 +21,8 @@ const sortLikes = async () => {
     LEFT JOIN
       shops s ON s.id = r.shop_id
     ORDER BY 
-	    (SELECT MAX(shop_id) AS countLikes FROM shop_likes)
-    `,
-    []
+	    (SELECT MAX(shop_id) AS countLikes FROM shop_likes);
+    `
   );
   return likes;
 };
@@ -50,8 +49,7 @@ const sortReviews = async () => {
       shops s ON s.id = r.shop_id
     ORDER BY 
       (SELECT MAX(user_id) AS countReviews FROM reviews)
-    `,
-    []
+    `
   );
   return reviews;
 };
@@ -77,9 +75,8 @@ const sortGrade = async () => {
     LEFT JOIN
       shops s ON s.id = r.shop_id
     ORDER BY 
-    s.average_rating AS shopsAverageRating
-    `,
-    []
+    s.average_rating
+    `
   );
   return grade;
 };
