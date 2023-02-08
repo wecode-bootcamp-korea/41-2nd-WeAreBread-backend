@@ -19,6 +19,13 @@ const createApp = () => {
   app.use(morgan("combined"));
 
   app.use(routes);
+
+  app.all("*", (req, res, next) => {
+    const err = new Error(`Can’t fine ${req.originalUrl} on this server!`);
+    err.statusCode = 404;
+    next(err);
+  });
+
   app.use(globalErrorHandler);
 
   return app;
