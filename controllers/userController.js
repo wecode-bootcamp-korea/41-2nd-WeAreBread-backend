@@ -6,9 +6,9 @@ const kakaoLogin = catchAsync(async (req, res) => {
 
   if (!kakaoToken) throw new Error("KEY_ERROR");
 
-  const { accessToken, status } = await userService.kakaoLogin(kakaoToken);
+  const { accessToken, userNickname, status } = await userService.kakaoLogin(kakaoToken);
 
-  res.status(status).json({ accessToken });
+  res.status(status).json({ accessToken, userNickname });
 });
 
 module.exports = {

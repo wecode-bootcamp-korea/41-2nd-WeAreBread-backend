@@ -25,9 +25,10 @@ const kakaoLogin = async (kakaoToken) => {
   }
 
   const userId = user.id;
+  const userNickname = user.nickname;
   const jsonwebtoken = await jwt.sign({ id: userId }, process.env.JWT_SECRET);
 
-  return { accessToken: jsonwebtoken, status: 200 };
+  return { accessToken: jsonwebtoken, userNickname: userNickname, status: 200 };
 };
 
 module.exports = {
