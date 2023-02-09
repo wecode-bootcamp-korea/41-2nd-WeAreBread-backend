@@ -171,7 +171,7 @@ const getSortedShopList = async (search, offset, limit, sort) => {
         WHERE (shops.name LIKE '%${search}%') OR (shops.address LIKE "%${search}%") OR (breads.name LIKE "%${search}%")
       )
     GROUP BY shops.id
-    ORDER BY ${sortMethod[sort]}
+    ORDER BY ${sortMethod[sort]}, shops.id ASC
     LIMIT ${limit} OFFSET ${offset}`
   );
 };
@@ -182,9 +182,7 @@ const getshopDetail = async (shopId) => {
       s.id,
       s.name,
       s.address,
-      JSON_ARRAYAGG(
-        b.name
-      ) as breadTypes,
+      btj.bread,
       s.shop_number,
       s.business_hours,
       s.average_rating,
@@ -198,6 +196,19 @@ const getshopDetail = async (shopId) => {
     JOIN bread_types AS bt ON bt.shop_id = s.id
     JOIN breads AS b ON bt.bread_id = b.id
     LEFT JOIN shop_likes AS sl ON sl.shop_id = s.id
+    
+    LEFT JOIN (
+      SELECT
+        shop_id,
+        JSON_ARRAYAGG(
+          breads.name
+        ) as bread
+      FROM
+        bread_types
+      JOIN breads ON bread_types.bread_id = breads.id
+      GROUP BY shop_id
+    ) btj ON s.id = btj.shop_id
+
     LEFT JOIN (
     SELECT
       reviews.shop_id,
@@ -211,6 +222,7 @@ const getshopDetail = async (shopId) => {
       GROUP BY shop_id
     ) ri ON s.id = ri.shop_id
     WHERE s.id = ?
+    GROUP BY s.id
     `
     ,
     [shopId]
