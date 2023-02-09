@@ -2,7 +2,7 @@ const { catchAsync } = require("../utils/error");
 const shopService = require("../services/shopService");
 
 const getDataForMainPage = catchAsync(async (req, res) => {
-  const { breadId } = req.query;
+  const { breadId } = req.params;
 
   if (!breadId) throw new Error("KEY_ERROR");
 
