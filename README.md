@@ -66,7 +66,8 @@
 
 
 ## ERD
-![스크린샷 2023-01-04 오후 3 37 03](https://user-images.githubusercontent.com/119113904/218299538-c6c659c5-0317-4515-99fc-518da3410cbc.png)
+<img width="759" alt="스크린샷 2023-02-12 오후 4 54 25" src="https://user-images.githubusercontent.com/119113904/218300059-52e4ada9-0ee5-40b5-8eb1-154af1bf95bd.png">
+
 
 
 <br />
